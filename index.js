@@ -1,31 +1,29 @@
+const {users, movies} = require("./data");
 const express = require('express');
-    bodyParser = require("body-parser"),
     morgan = require('morgan');
 const app = express();
 
 //Logging middleware
 app.use(morgan('common'));
-app.use(bodyParser.json());
-
-app.use((err, req, res, next) => {
-    //logic
-});
-
-//GET method route
-app.get('/', (req,res) => {
-    res.send('Welcome to my app!');
-});
+app.use(express.json());
 
 app.get('/movies', (req, res) => {
-    res.json(movie);
+    res.json(movies);
 });
+app.get('/', (req,res) => {
+    res.send('Welcome to the Top 10 Movies List!');
+});
+
+//Static file
+app.use(
+    express.static('public'));
+
+//Error-handling middleware function
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).send('Oops! Something Went Wrong!');
+})
 
 app.listen(8080, () => {
     console.log('Your app is listening on port 8080');
 })
-
-//Static file
-app.use(
-    "/documentation",
-    express.static("public", {index: "documentation.html"})
-);
