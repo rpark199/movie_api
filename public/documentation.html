@@ -2,9 +2,105 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>Index</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Movieflix</title>
     </head>
     <body>
-        
+        <h1>Movie API</h1>
+        <p>Movieflix is built with the REST architecture. The API will provide users with access to information about movies. Users are able to sign up, update their personal information, and create a list of their favorite movie.
+        </p>
+        <h2>Requests</h2>
+        <table>
+            <thread>
+                <tr>
+                    <th>Request</th>
+                    <th>URL</th>
+                    <th>HTTP Method</th>
+                    <th>Request body data format</th>
+                    <th>Response body data format</th>
+                </tr>
+            </thread>
+            <tbody>
+                <tr>
+                    <td>Return a list a all movies to the user</td>
+                    <td>/movies</td>
+                    <td>GET</td>
+                    <td>None</td>
+                    <td> A JSON object holding data about all movies</td>
+                </tr>
+                <tr>
+                    <td>Return data about a single movie by title</td>
+                    <td>/movies/[Title]</td>
+                    <td>Get</td>
+                    <td>None</td>
+                    <td>A JSON object holding data about a single movie, containing title, year, genre, director
+                        For example:<br>
+                        {'id': '######',<br>
+                        'title': 'The Dark Knight',<br>
+                        'director': 'Christopher Nolan',<br>
+                        'release-year': '2008',<br>
+                        'genre': 'action'}
+                    </td>
+                </tr>
+                <tr>
+                    <td>Return data about a genre</td>
+                    <td>/movies/genre/[genreName]</td>
+                    <td>GET</td>
+                    <td>None</td>
+                    <td>A JSON object holding data about a single genre, containing genre name, desription</td>
+                </tr>
+                <tr>
+                    <td>Return data about a director</td>
+                    <td>/movies/directors/[directorName]</td>
+                    <td>GET</td>
+                    <td>None</td>
+                    <td>A JSON object holding data about a single director, containing director name, bio, birth and death year</td>
+                </tr>
+                <tr>
+                    <td>Allow new users to register</td>
+                    <td>/users</td>
+                    <td>POST</td>
+                    <td>A JSON object holding data about the user to add, like:<br>
+                        {ID: Ingteger,
+                        Username: String,
+                        Password: String,
+                        EMail: String,
+                        Birthday: Date}
+                    </td>
+                </tr>
+                <tr>
+                    <td>Allow users to update their user info by Username</td>
+                    <td>/users/[Username]</td>
+                    <td>PUT</td>
+                    <td>A JSON object holding data about the user needs to be updated, like:<br>
+                        {Username: req.body.Username,
+                        Password: req.body.Password,
+                        EMail: req.body.Email,
+                        Birthday: req.body.Birthday}
+                    </td>
+                </tr>
+                <tr>
+                    <td>Allow users to add a movie to their list of favorites</td>
+                    <td>/users/[Username]/movies/[MovieID]</td>
+                    <td>POST</td>
+                    <td>None</td>
+                    <td>A JSON object holding data about the updated user information</td>
+                </tr>
+                <tr>
+                    <td>Allow users to remove a movie from their list of favorites</td>
+                    <td>/users/[Username]/movies/[MovieID]</td>
+                    <td>DELETE</td>
+                    <td>None</td>
+                    <td> A text message indicating whether the movie was successfully removed from the user's favoirted movies</td>
+                </tr>
+                <tr>
+                    <td>Allow existing users to deregister</td>
+                    <td>/users/[Username]</td>
+                    <td>DELETE</td>
+                    <td>None</td>
+                    <td>A text message indicating whether the user deregister successfully</td>
+                </tr>
+            </tbody>
+        </table>
     </body>
 </html>
