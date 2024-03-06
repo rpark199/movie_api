@@ -14,24 +14,16 @@ const Users = models.user;
 const Directors = models.director;
 const Genres = models.genre;
 
-app.use((cors({
-    credentials:true,
-    allowedOrigins:['Content-Type', 'Authorization']
-})));
-
+let allowedOrigins =['http://localhost:8080',
+'http://localhost:1234',
+'http://localhost:4200',
+'https://Movieflix.netlify.app',
+'https://rpark199.github.io',
+'https://rpark199.github.io/Movieflix-Angular-App',
+'https://GitHub.com',]
 app.use(cors({
     orgin: (orgin, callback) => {
         if (!orgin) return callback(null,true);
-
-        const allowedOrigins= [
-            'http://localhost:8080',
-            'http://localhost:1234',
-            'http://localhost:4200',
-            'https://Movieflix.netlify.app',
-            'https://rpark199.github.io',
-            'https://rpark199.github.io/Movieflix-Angular-App',
-            'https://GitHub.com',
-        ]
         if (allowedOrigins.index(origin) === -1) {
             let message= 'The CORS policy for this application doesn’t allow access from origin ' + origin;
             return callback(new Error(message), false);
