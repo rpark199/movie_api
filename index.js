@@ -5,7 +5,14 @@ const morgan = require('morgan');
 const app = express();
 const bodyParser = require('bodt-parser');
 const uuid = require('uuid');
+let auth = require('./auth')(app);
+const passport = require('passport');
+require('./passport');
 
+const Movies = models.movie;
+const Users = models.user;
+const Directors = models.director;
+const Genres = models.genre;
 app.use(cors({
     orgin: (orgin, callback) => {
         if (!orgin) return callback(null,true);
@@ -53,10 +60,13 @@ app.listen(8080, () => {
 })
 
 //sets the port
-const port =process.env.PORT || 8080;
+const port = process.env.PORT || 8080;
 app.listen(port, '0.0.0.0', () => {
     console.log('Listening on Port' + port);
 });
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended:true }));
 
 //Get documentation html page
 app.get('/docmentation', (req,res) => {
