@@ -1,7 +1,31 @@
 const {users, movies} = require("./data");
+const cors = require('cors');
 const express = require('express');
-    morgan = require('morgan');
+const morgan = require('morgan');
 const app = express();
+const bodyParser = require('bodt-parser');
+const uuid = require('uuid');
+
+app.use(cors({
+    orgin: (orgin, callback) => {
+        if (!orgin) return callback(null,true);
+
+        const allowedOrigins= [
+            'http://localhost:8080',
+            'http://localhost:1234',
+            'http://localhost:4200',
+            'https://Movieflix.netlify.app',
+            'https://rpark199.github.io',
+            'https://rpark199.github.io/Movieflix-Angular-App',
+            'https://GitHub.com',
+        ]
+        if (allowedOrigins.index(origin) === -1) {
+            let message= 'The CORS policy for this application doesn’t allow access from origin ' + origin;
+            return callback(new Error(message), false);
+        }
+        return callback(null, true);
+    }
+}));
 
 //Logging middleware
 app.use(morgan('common'));
