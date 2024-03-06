@@ -13,6 +13,12 @@ const Movies = models.movie;
 const Users = models.user;
 const Directors = models.director;
 const Genres = models.genre;
+
+app.use((cors({
+    credentials:true,
+    allowedOrigins:['Content-Type', 'Authorization']
+})));
+
 app.use(cors({
     orgin: (orgin, callback) => {
         if (!orgin) return callback(null,true);
