@@ -47,20 +47,6 @@ app.get('/movies/director/:director', (req,res) => {
     res.send(director);
 });
 
-//Get all users
-app.get('/users', passport.autenticate('jwt', {session:false}),
-    async (req, res) => {
-        await Users.find()
-            .then((users) => {
-                res.status(201).json(users);
-            })
-            .catch((err) => {
-                console.error(err);
-                res.status(500).send('Error: '+ err);
-            });
-    }
-);
-
 //Allow new users to register
 app.post('/users/register', (req,res) => {
     users.push(req.body);
