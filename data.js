@@ -68,9 +68,9 @@ let users = [
           genre: 'Suspense-Thriller'
         },
         {
-          title: 'The Shack',
-          director: 'Stuart Hazeldine',
-          genre: 'Feel-Good'
+         title: 'The Shawshank Redemption',
+          director: 'Frank Darabont',
+          genre: 'Action-thriller'
         }
     ];
 
