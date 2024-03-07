@@ -83,6 +83,6 @@ app.delete('/users/deregister/:id', (req,res) => {
 });
 
 //Listening code
-app.listen(PORT, () => {
-    console.log('Your SERVER is listening on port ${PORT}.');
+app.listen(8080, () => {
+    console.log('Your app is listening on port 8080');
 });
