@@ -119,10 +119,10 @@ app.get('/movies/:title', (req,res) => {
 //Returning data a single genre
 app.get('/movies/genre/:genreName', (req,res) => {
     const {genreName} = req.params;
-    const genre= movies.find( movie => movie.Genre.Name === genreName).Genre;
+    const genre= movies.find( movie => movie.Genre=== genreName);
     
     if (genre) {
-        res.status(200).json(genre);
+        res.status(200).json(director);
     } else {
         res.status(400).send("no such genre")
     }
