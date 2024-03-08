@@ -133,7 +133,7 @@ app.get('/movies/director/:directorName', (req,res) => {
     const {directorName} = req.params;
     const director= movies.find( movie => movie.Director === directorName);
     if (director) {
-        res.status(200).json(movies);
+        res.status(200).json(director);
     } else {
         res.status(400).send("no such director")
     }
