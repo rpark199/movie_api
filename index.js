@@ -98,12 +98,6 @@ app.get('/', (req,res) => {
 //Using express to get documentation.html
 app.use(express.static('public'));
 
-//Error-handling middleware function
-app.use((err, req, res, next) => {
-    console.error(err.stack);
-    res.status(500).send('Oops! Something Went Wrong!');
-})
-
 //Returning data a single movie
 app.get('/movies/:title', (req,res) => {
     const {title} = req.params;
@@ -210,5 +204,12 @@ app.delete('/users/:id', (req,res) => {
         res.status(400).send('no such user')
     }
 });
+
+//Error-handling middleware function
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).send('Oops! Something Went Wrong!');
+});
+
 //Listening code
 app.listen(8080, () => console.log('Your app is listening on port 8080'));
