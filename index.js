@@ -186,10 +186,10 @@ app.post('/users/:id/movies/:movieTitle', (req, res) => {
 app.delete('/users/:id/:movieTitle', (req,res) => {
     const {id, movieTitle}= req.params;
 
-    let user = user.find( user => user.id == id);
+    let user = users.find(( user) => user.id == id);
 
     if (user) {
-        user.favoriteMovies= user.favoriteMovie.filter( title => title !== movieTitle);
+        user.favoriteMovies= user.favoriteMovies.filter( title => title !== movieTitle);
         res.status(200).send('${movietitle} has been removed from user ${id} array');
     } else {
         res.status(400).send('no such user')
@@ -200,7 +200,7 @@ app.delete('/users/:id/:movieTitle', (req,res) => {
 app.delete('/users/:id', (req,res) => {
     const {id}= req.params;
 
-    let user = user.find( user => user.id == id);
+    let user = users.find((user) => user.id == id);
 
     if (user) {
         users = users.filter( user => user.id != id);
