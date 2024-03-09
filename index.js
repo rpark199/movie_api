@@ -10,7 +10,7 @@ let users = [
       id:1,
       fullname: 'John Doe',
       email: 'johndoe@mail.com',
-      favMovies: [{
+      favoriteMovies: [{
         Title: 'Inception',
         Director: 'Christopher Nolan',
         Genre: 'Sci-Fi'
@@ -20,7 +20,7 @@ let users = [
       id:2,
       fullname: 'Jane Doe',
       email: 'janedoe@mail.com',
-      favMovies: [{
+      favortieMovies: [{
         Title: 'Inception',
         Director: 'Christopher Nolan',
         Genre: 'Sci-Fi'
