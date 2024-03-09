@@ -169,10 +169,10 @@ app.put('/users/:id', (req,res) => {
 });
  
 //Allow users to add a movie to their favorite movie list
-app.post('/users/:id/movies/:movieTitle', (req,res) => {
+app.post('/users/:id/movies/:movieTitle', (req, res) => {
     const {id, movieTitle}= req.params;
 
-    let user = user.find( user => user.id == id);
+    let user = users.find( user => user.id == id);
 
     if (user) {
         user.favoriteMovies.push(movieTitle);
