@@ -12,82 +12,6 @@ const app = express();
 const bodyParser = require('body-parser');
 const uuid = require('uuid');
 
-let users = [
-    {
-      id:1,
-      name: 'John Doe',
-      email: 'johndoe@mail.com',
-      favoriteMovies: [{
-        Title: 'Inception',
-        Director: 'Christopher Nolan',
-        Genre: 'Sci-Fi'
-      }]
-    },
-    {
-      id:2,
-      name: 'Jane Doe',
-      email: 'janedoe@mail.com',
-      favortieMovies: [{
-        Title: 'Inception',
-        Director: 'Christopher Nolan',
-        Genre: 'Sci-Fi'
-      }]
-    }
-  
-  ];
-  let movies = [
-      {
-        Title: 'Inception',
-        Director: 'Christopher Nolan',
-        Genre: 'Sci-Fi'
-      },
-      {
-        Title: 'Lord of the Rings',
-        Director: 'Peter Jackson',
-        Genre: 'Super-Heroes'
-      },
-      {
-        Title: 'The Matrix',
-        Director: 'Lana Wachowski',
-        Genre: 'Sci-fi'
-      },
-      {
-        Title: 'The Avengers',
-        Director: 'Anthony Russo',
-        Genre: 'Super-Heroes'
-      },
-      {
-        Title: 'The Silence Of The Lambs',
-        Director: 'Jonathan Demme',
-        Genre: 'Suspense-Thriller'
-      },
-      {
-        Title: 'Terminator',
-        Director: 'James Cameron',
-        Genre: 'Action'
-      },
-      {
-        Title: 'The Prestige',
-        Director: 'Christopher Nolan',
-        Genre: 'Suspense-Thriller'
-      },
-      {
-        Title: 'Shutter Island',
-        Director: 'Martin Scorsese',
-        Genre:'Suspense-Thriller'
-      },
-      {
-        Title: 'The Fugitive',
-        Director: 'Andrew Davis',
-        Genre: 'Suspense-Thriller'
-      },
-      {
-        Title: 'The Shawshank Redemption',
-        Director: 'Frank Darabont',
-        Genre: 'Action-thriller'
-      }
-    ];
-
 app.use(express.static('public'));
 
     //Logging middleware
@@ -196,7 +120,7 @@ app.delete('/users/:Username', async (req, res) => {
 
 //DELETE favorite movie by movieName
 app. delete('/users/:username/movies/:name', async (req, res) => {
-  await Users.findOneAndUpdate({ Username: req.params.username},{ $pull: {favoriteMovies: req.params.name} }, { new: true })
+  await Users.findOneAndUpdate({ Username: req.params.username},{ $pull: {FavoriteMovies: req.params.name} }, { new: true })
   .then((updatedUser) => {
     res.json(updatedUser);
   })
@@ -234,7 +158,7 @@ app.get('/movies/:Title', async (req,res) => {
 app.get('/movies/genre/:genreName', async (req,res) => {
   await Movies.find({ "Genre.Name": req.params.genreName })
     .then((movies) => {
-      res.status(200).json(movies);
+      res.status(200).json(movies.Genre);
     })
     .catch((err) => {
       console.log(err);
@@ -246,7 +170,7 @@ app.get('/movies/genre/:genreName', async (req,res) => {
 app.get('/movies/director/:directorName', async (req,res) => {
   await Movies.find({ "Director.Name": req.params.directorName })
     .then((movies) => {
-      res.status(200).json(movies);
+      res.status(200).json(movies.Director);
     })
     .catch((err) => {
       console.log(err);
