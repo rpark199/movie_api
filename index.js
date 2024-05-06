@@ -62,42 +62,46 @@ app.get('/users/:username', passport.authenticate('jwt', { session: false }), as
 
 
 //CREATE user
-app.post('/users', [
-  check('Username', 'username is required!').isLength({min: 3}),
-  check('Username', 'username contains non alphanumericcharacters - not allowed.').isAlphanumeric(),
-  check('Email', 'email does not appear to be valid').isEmail(),
-  ], async (req, res) => {
-      let errors = validationResult(req);
+app.post('/users',
+[
+  check('Username', 'Username must be at least 5 characters').isLength({min: 6}),
+  check('Username', 'Username contains non alphanumeric characters').isAlphanumeric(),
+  check('Password', 'Password must be at least 6 characters').isLength({min: 6}),
+  check('Email', 'Email does not appear to be valid').isEmail()
+], (req, res) => {
+  let errors = validationResult(req);
 
-      if (!errors.isEmpty()) {
-          return res.status(422).json({ errors: errors.array()});
-      }
+  if (!errors.isEmpty()) {
+    return res.status(422).json({ errors: errors.array() });
+  }
 
-      let hashedPassword = Users.hashPassword(req.body.Password);
-          await users.findOne({ Username: req.body.Username})
-          .then((user) => {
-          if (user) {
-              return res.status(400).send(req.body.username + 'already exists');
-          } else {
-              users.create({
-                  Username: req.body.Username,
-                  Password: hashedPassword,
-                  Email: req.body.Email,
-                  Birthday: req.body.Birthday
-                  })
-                  .then((user) => {
-                      res.status(201).json(user)
-                  })
-                  .catch((error) => {
-                      console.error(error);
-                      res.status(500).send('Error: ' + error);
-                  });
+  let hashedPassword = Users.hashPassword(req.body.Password);
+  // Search to see if a user with the requested username already exists
+  Users.findOne({ Username: req.body.Username }) 
+    .then((user) => {
+      if (user) {
+      //If the user is found, send a response that it already exists
+        return res.status(400).send(req.body.Username + ' already exists');
+      } else {
+        Users
+          .create({
+            Username: req.body.Username,
+            Password: hashedPassword,
+            Email: req.body.Email,
+            Birthday: req.body.Birthday,
+            Name: req.body.Name
+          })
+          .then((user) => { res.status(201).json(user) })
+          .catch((error) => {
+            console.error(error);
+            res.status(500).send('Error: ' + error);
+          });
       }
-  })
-      .catch((error) => {
-          console.error(error);
-          res.status(500).send('Error: ' + error);
-      });
+    })
+    .catch((error) => {
+      console.error(error);
+      res.status(500).send('Error: ' + error);
+    });
 });
 //UPDATE user info
 app.put('/users/:Username', passport.authenticate('jwt', { session: false }), async (req,res) => {
