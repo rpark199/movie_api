@@ -17,9 +17,6 @@ const Users = Models.User;
 // mongoose.connect('process.env.CONNECTION_URI', { useNewUrlParser: true, useUnifiedTopology: true});
 mongoose.connect('mongodb+srv://mhousman24:passw0rd@cluster0.imvxidj.mongodb.net/test', { useNewUrlParser: true, useUnifiedTopology: true});
 
-
-const { check, validationResult }= require("express-validator");
-
 let allowedOrigins = ['http://localhost:8080', 'http://testsite.com', 'http://localhost:1234'];
 
 app.use(cors ({
