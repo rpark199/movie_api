@@ -18,7 +18,6 @@ const Users = Models.User;
 mongoose.connect('mongodb+srv://mhousman24:passw0rd@cluster0.imvxidj.mongodb.net/test', { useNewUrlParser: true, useUnifiedTopology: true});
 
 
-const cors= require('cors');
 const { check, validationResult }= require("express-validator");
 
 let allowedOrigins = ['http://localhost:8080', 'http://testsite.com', 'http://localhost:1234'];
