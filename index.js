@@ -146,21 +146,20 @@ app.post('/users/:Username/movies/:MovieID', passport.authenticate('jwt', { sess
   });
 
 //DELETE user by username
-app.delete('/users/:Username', passport.authenticate('jwt', { session: false }), async (req, res) => {
-  await Users.findOneAndRemove({ Username: req.params.Username })
-    .then((user) => {
-      if (!user) {
-        res.status(400).send(req.params.Username + 'was not found');
-      } else {
-        res.status(200).send(req.params.Username + 'was deleted.');
-      }
-    })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).send('Error: ' + err);
-    });
-});
-
+ app.delete('/users/:Username', (req, res) => {
+    Users.findOneAndRemove({ Username: req.params.Username })
+      .then((user) => {
+        if (!user) {
+          res.status(400).send(req.params.Username + ' was not found');
+        } else {
+          res.status(200).send(req.params.Username + ' was deleted.');
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+        res.status(500).send('Error: ' + err);
+      });
+  });
 //DELETE favorite movie 
  app.delete('/users/:Username/movies/:MovieID', passport.authenticate('jwt', { session: false }),
  (req,res) => {
