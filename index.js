@@ -129,19 +129,21 @@ app.put('/users/:Username', passport.authenticate('jwt', { session: false }), as
 });
 
 //UPDATE movie to user's list of favorites
-app.post('/users/:Username/movies/:movieName', passport.authenticate('jwt', { session: false }), async (req, res) => {
-  await Users.findOneAndUpdate(
-    { Username: req.params.Username }, 
-    { $push: { FavoriteMovies: req.params.movieName } },
-    { new: true })
-    .then((updatedUser) => {
-      res.json(updatedUser);
+app.post('/users/:Username/movies/:MovieID', passport.authenticate('jwt', { session: false }), 
+  (req, res) => {
+    Users.findOneAndUpdate({ Username: req.params.Username }, {
+       $push: { FavoriteMovies: req.params.MovieID }
+     },
+     { new: true }, // This line makes sure that the updated document is returned
+    )
+    .then(updatedUser => {
+        res.json(updatedUser);
     })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).send('Error: ' + err);
+    .catch(err => {
+        console.error(err);
+        res.status(500).send('Error: ' + err);
     });
-});
+  });
 
 //DELETE user by username
 app.delete('/users/:Username', passport.authenticate('jwt', { session: false }), async (req, res) => {
@@ -159,17 +161,22 @@ app.delete('/users/:Username', passport.authenticate('jwt', { session: false }),
     });
 });
 
-//DELETE favorite movie by movieName
-app. delete('/users/:username/movies/:name', passport.authenticate('jwt', { session: false }), async (req, res) => {
-  await Users.findOneAndUpdate({ Username: req.params.username},{ $pull: {FavoriteMovies: req.params.name} }, { new: true })
-  .then((updatedUser) => {
-    res.json(updatedUser);
-  })
-  .catch((err) => {
-    console.error(err);
-    res.status(500).send('Error: '+ err);
-  });
-});
+//DELETE favorite movie 
+ app.delete('/users/:Username/movies/:MovieID', passport.authenticate('jwt', { session: false }),
+ (req,res) => {
+    Users.findOneAndUpdate({ Username: req.params.Username }, {
+        $pull: { FavoriteMovies: req.params.MovieID }
+    },
+    { new: true }, 
+    )
+    .then(updatedUser => {
+        res.json(updatedUser);
+    })
+    .catch(err => {
+        console.error(err);
+        res.status(500).send('Error: ' + err);
+    });
+ });
 
 //GET all movies
 app.get('/movies', passport.authenticate('jwt', { session: false }), async (req, res) => {
