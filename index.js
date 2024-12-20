@@ -17,7 +17,7 @@ const Users = Models.User;
 // mongoose.connect('process.env.CONNECTION_URI', { useNewUrlParser: true, useUnifiedTopology: true});
 mongoose.connect('mongodb+srv://mhousman24:passw0rd@cluster0.imvxidj.mongodb.net/test', { useNewUrlParser: true, useUnifiedTopology: true});
 
-let allowedOrigins = ['http://localhost:8080', 'http://testsite.com', 'http://localhost:1234'];
+let allowedOrigins = ['http://localhost:8080', 'http://testsite.com', 'http://localhost:1234', 'http://localhost:4200'];
 
 app.use(cors ({
   origin: (origin, callback) => {
