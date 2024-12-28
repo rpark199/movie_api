@@ -30,7 +30,7 @@ app.use(cors ({
   }
 }));
 
-//Logging middleware
+// Add Logging middleware
 app.use(express.json());
 app.use(express.static('public'));
 app.use(morgan('common'));
